@@ -2,16 +2,13 @@ package com.empresa.financeiro.mapper;
 
 import com.empresa.financeiro.DTO.DividaRequestDTO;
 import com.empresa.financeiro.DTO.DividaResponseDTO;
-import com.empresa.financeiro.DTO.LancamentoRequestDTO;
-import com.empresa.financeiro.DTO.LancamentoResponseDTO;
 import com.empresa.financeiro.entity.Divida;
-import com.empresa.financeiro.entity.Lancamento;
-import com.github.dozermapper.core.DozerBeanMapperBuilder;
 import com.github.dozermapper.core.Mapper;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import tools.jackson.databind.ObjectMapper;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 
 @Component
 public class DividaMapper {
@@ -21,7 +18,9 @@ public class DividaMapper {
         divida.setDescricao(dto.getDescricao());
         divida.setValorTotal(dto.getValorTotal());
         divida.setValorPago(dto.getValorPago());
-        divida.setDataVencimento(dto.getDataVencimento());
+        divida.setDataVencimento(
+                dto.getDataVencimento() != null ? dto.getDataVencimento() : LocalDate.now()
+        );
         return divida;
     }
 
@@ -33,4 +32,5 @@ public class DividaMapper {
         dto.setDataVencimento(divida.getDataVencimento());
         return dto;
     }
+
 }

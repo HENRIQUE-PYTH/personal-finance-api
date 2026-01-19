@@ -1,5 +1,6 @@
 package com.empresa.financeiro.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -14,7 +15,7 @@ public class Divida {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 130)
+    @Column(name = "descricao", nullable = false, length = 130)
     private String descricao;
 
     @Column(name = "valor_total", nullable = false)
@@ -23,7 +24,8 @@ public class Divida {
     @Column(name = "valor_pago", nullable = false)
     private BigDecimal valorPago;
 
-    @Column(name = "data_vencimento", nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @Column(name = "data_de_vencimento", nullable = false)
     private LocalDate dataVencimento;
 
     @ManyToOne

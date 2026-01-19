@@ -1,5 +1,6 @@
 package com.empresa.financeiro.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -24,6 +25,7 @@ public class Lancamento {
     @Column(nullable = false)
     private TipoLancamento tipo;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @Column(nullable = false)
     private LocalDate data;
 

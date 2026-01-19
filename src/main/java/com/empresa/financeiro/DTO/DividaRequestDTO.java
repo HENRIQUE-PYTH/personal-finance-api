@@ -1,6 +1,10 @@
 package com.empresa.financeiro.DTO;
 
 import com.empresa.financeiro.entity.Usuario;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.annotation.JsonDeserialize;
+import tools.jackson.databind.ext.javatime.deser.LocalDateDeserializer;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -11,6 +15,8 @@ public class DividaRequestDTO {
     private String descricao;
     private BigDecimal valorTotal;
     private BigDecimal valorPago;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dataVencimento;
 
     public DividaRequestDTO() {
