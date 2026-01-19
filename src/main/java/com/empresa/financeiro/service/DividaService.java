@@ -8,6 +8,7 @@ import com.empresa.financeiro.repository.DividaRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Service
 public class DividaService {
@@ -32,6 +33,11 @@ public class DividaService {
         if (divida.getValorPago() == null) {
             divida.setValorPago(BigDecimal.ZERO);
         }
+
+        if (divida.getDataVencimento() == null) {
+            divida.setDataVencimento(LocalDate.now());
+        }
+
 
         return repository.save(divida);
     }
