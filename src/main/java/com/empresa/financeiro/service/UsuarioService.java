@@ -32,6 +32,7 @@ public class UsuarioService {
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
     }
 
+
     public List<Usuario> listarTodos() {
         return repository.findAll();
     }
