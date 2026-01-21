@@ -61,7 +61,7 @@ The application follows a layered architecture:
 ## ▶️ How to Run the Project
 
 ### Prerequisites
-- Java 17+
+- Java 21
 - MySQL
 - Maven
 
