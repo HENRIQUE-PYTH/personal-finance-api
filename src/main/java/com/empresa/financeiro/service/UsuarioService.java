@@ -1,10 +1,13 @@
 package com.empresa.financeiro.service;
 
-import com.empresa.financeiro.entity.Divida;
+import com.empresa.financeiro.DTO.LoginRequestDTO;
+import com.empresa.financeiro.entity.UserCredential;
 import com.empresa.financeiro.entity.Usuario;
 import com.empresa.financeiro.exception.BusinessException;
 import com.empresa.financeiro.exception.ResourceNotFoundException;
+import com.empresa.financeiro.mapper.CredentialMapper;
 import com.empresa.financeiro.repository.UsuarioRepository;
+import com.empresa.financeiro.repository.CredentialRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -12,29 +15,23 @@ import java.util.List;
 @Service
 public class UsuarioService {
 
-    private final UsuarioRepository repository;
+    private final UsuarioRepository usuarioRepository;
 
-    public UsuarioService(UsuarioRepository repository) {
-        this.repository = repository;
+    public UsuarioService(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
     }
 
     public Usuario criar(Usuario usuario) {
-
-        if (repository.existsByEmail(usuario.getEmail())) {
-            throw new BusinessException("Email já cadastrado");
-        }
-
-        return repository.save(usuario);
+        return usuarioRepository.save(usuario);
     }
 
     public Usuario buscarPorId(Long id) {
-        return repository.findById(id)
+        return usuarioRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
     }
 
-
     public List<Usuario> listarTodos() {
-        return repository.findAll();
+        return usuarioRepository.findAll();
     }
 }
 

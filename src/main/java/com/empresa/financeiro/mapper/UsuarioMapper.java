@@ -19,14 +19,12 @@ public class UsuarioMapper {
     public Usuario toEntity(UsuarioRequestDTO dto) {
         Usuario user = new Usuario();
         user.setNome(dto.getNome());
-        user.setEmail(dto.getEmail());
         return user;
     }
 
     public UsuarioResponseDTO toResponseDTO(Usuario user) {
         UsuarioResponseDTO dto = new UsuarioResponseDTO();
         dto.setNome(user.getNome());
-        dto.setEmail(user.getEmail());
         return dto;
     }
 

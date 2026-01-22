@@ -5,6 +5,7 @@ import com.empresa.financeiro.DTO.DividaResponseDTO;
 import com.empresa.financeiro.DTO.UsuarioRequestDTO;
 import com.empresa.financeiro.DTO.UsuarioResponseDTO;
 import com.empresa.financeiro.entity.Divida;
+import com.empresa.financeiro.entity.UserCredential;
 import com.empresa.financeiro.entity.Usuario;
 import com.empresa.financeiro.mapper.UsuarioMapper;
 import com.empresa.financeiro.service.UsuarioService;
@@ -18,29 +19,31 @@ import java.util.List;
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
-    private final UsuarioService service;
-    private final UsuarioMapper mapper;
+    private final UsuarioService usuarioService;
+    private final UsuarioMapper usuarioMapper;
 
-    public UsuarioController(UsuarioService service, UsuarioMapper mapper) {
-        this.service = service;
-        this.mapper = mapper;
+    public UsuarioController(UsuarioService usuarioService,
+                             UsuarioMapper usuarioMapper) {
+        this.usuarioService = usuarioService;
+        this.usuarioMapper = usuarioMapper;
     }
 
     @PostMapping
     public ResponseEntity<UsuarioResponseDTO> criar(
             @RequestBody @Valid UsuarioRequestDTO dto
     ) {
-        Usuario usuario = mapper.toEntity(dto);
-        Usuario salvo = service.criar(usuario);
-        return ResponseEntity.ok(mapper.toResponseDTO(salvo));
+        Usuario usuario = usuarioMapper.toEntity(dto);
+        Usuario salvo = usuarioService.criar(usuario);
+        return ResponseEntity.ok(usuarioMapper.toResponseDTO(salvo));
     }
-
 
     @GetMapping
     public ResponseEntity<List<UsuarioResponseDTO>> listar() {
-        List<Usuario> usuarios = service.listarTodos();
+        List<Usuario> usuarios = usuarioService.listarTodos();
         return ResponseEntity.ok(
-                usuarios.stream().map(mapper::toResponseDTO).toList()
+                usuarios.stream()
+                        .map(usuarioMapper::toResponseDTO)
+                        .toList()
         );
     }
 }

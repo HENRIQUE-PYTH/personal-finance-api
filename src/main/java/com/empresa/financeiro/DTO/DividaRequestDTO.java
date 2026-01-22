@@ -54,14 +54,4 @@ public class DividaRequestDTO {
         this.dataVencimento = dataVencimento;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof DividaRequestDTO that)) return false;
-        return Objects.equals(getDescricao(), that.getDescricao()) && Objects.equals(getValorTotal(), that.getValorTotal()) && Objects.equals(getValorPago(), that.getValorPago()) && Objects.equals(getDataVencimento(), that.getDataVencimento());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getDescricao(), getValorTotal(), getValorPago(), getDataVencimento());
-    }
 }

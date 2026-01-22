@@ -16,29 +16,22 @@ public class Usuario {
     @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false)
-    private String email;
-
     @OneToMany(mappedBy = "usuario")
     private List<Lancamento> lancamentos;
 
     @OneToMany(mappedBy = "usuario")
     private List<Divida> dividas;
 
+    @OneToOne(mappedBy = "usuario")
+    private UserCredential credential;
+
     public Usuario() {
     }
 
-    public Usuario(String email, String nome) {
-        this.email = email;
-        this.nome = nome;
-    }
+
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -49,12 +42,12 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return email;
+    public UserCredential getCredential() {
+        return credential;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCredential(UserCredential credential) {
+        this.credential = credential;
     }
 
     public List<Lancamento> getLancamentos() {
@@ -76,11 +69,11 @@ public class Usuario {
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Usuario usuario)) return false;
-        return Objects.equals(getId(), usuario.getId()) && Objects.equals(getNome(), usuario.getNome()) && Objects.equals(getEmail(), usuario.getEmail()) && Objects.equals(getLancamentos(), usuario.getLancamentos()) && Objects.equals(getDividas(), usuario.getDividas());
+        return Objects.equals(getId(), usuario.getId()) && Objects.equals(getNome(), usuario.getNome()) && Objects.equals(getLancamentos(), usuario.getLancamentos()) && Objects.equals(getDividas(), usuario.getDividas()) && Objects.equals(getCredential(), usuario.getCredential());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getNome(), getEmail(), getLancamentos(), getDividas());
+        return Objects.hash(getId(), getNome(), getLancamentos(), getDividas(), getCredential());
     }
 }
