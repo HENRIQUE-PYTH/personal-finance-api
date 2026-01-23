@@ -10,6 +10,8 @@ The balance is not stored in the database. Instead, it is dynamically calculated
 
 ⚠️ Note: This project does not yet include JWT authentication or CORS configuration, as these concepts have not yet been learned and will be integrated in the future.
 
+⚠️ THIS PROJECT SHOULD NOT BE USED WITH REAL PERSONAL DATA, AS IT IS STILL IN THE TESTING PHASE AND DOES NOT IMPLEMENT FULL SECURITY MEASURES (e.g., JWT, refresh tokens, advanced authorization).
+
 ---------------------------------------------------------------------------------------------------------------------
 
 🧠 Features
