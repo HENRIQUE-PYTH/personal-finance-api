@@ -1,23 +1,21 @@
 package com.empresa.financeiro.DTO;
 
 
+import jakarta.validation.constraints.Email;
+
 public class LoginRequestDTO {
-    private String nome;
+    @Email
     private String email;
     private String senha;
 
-    public LoginRequestDTO(String nome, String email, String senha) {
-        this.nome = nome;
+
+
+    public LoginRequestDTO(String email, String senha) {
         this.email = email;
         this.senha = senha;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
+    public LoginRequestDTO() {
     }
 
     public String getEmail() {

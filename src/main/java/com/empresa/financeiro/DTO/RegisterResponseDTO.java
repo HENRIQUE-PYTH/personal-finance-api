@@ -1,8 +1,14 @@
 package com.empresa.financeiro.DTO;
 
+import jakarta.validation.constraints.Email;
+
 public class RegisterResponseDTO {
     private String nome;
+    @Email
     private String email;
+
+    public RegisterResponseDTO() {
+    }
 
     public RegisterResponseDTO(String nome, String email) {
         this.nome = nome;
