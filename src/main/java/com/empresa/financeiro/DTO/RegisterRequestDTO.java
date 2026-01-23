@@ -1,12 +1,11 @@
 package com.empresa.financeiro.DTO;
 
-
-public class LoginRequestDTO {
+public class RegisterRequestDTO {
     private String nome;
     private String email;
     private String senha;
 
-    public LoginRequestDTO(String nome, String email, String senha) {
+    public RegisterRequestDTO(String nome, String email, String senha) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -35,6 +34,4 @@ public class LoginRequestDTO {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-
-
 }

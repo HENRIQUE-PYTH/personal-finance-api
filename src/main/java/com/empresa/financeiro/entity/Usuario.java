@@ -22,7 +22,7 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     private List<Divida> dividas;
 
-    @OneToOne(mappedBy = "usuario")
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
     private UserCredential credential;
 
     public Usuario() {
