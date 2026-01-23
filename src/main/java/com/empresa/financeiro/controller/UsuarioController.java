@@ -1,11 +1,8 @@
 package com.empresa.financeiro.controller;
 
 
-import com.empresa.financeiro.DTO.DividaResponseDTO;
 import com.empresa.financeiro.DTO.UsuarioRequestDTO;
 import com.empresa.financeiro.DTO.UsuarioResponseDTO;
-import com.empresa.financeiro.entity.Divida;
-import com.empresa.financeiro.entity.UserCredential;
 import com.empresa.financeiro.entity.Usuario;
 import com.empresa.financeiro.mapper.UsuarioMapper;
 import com.empresa.financeiro.service.UsuarioService;

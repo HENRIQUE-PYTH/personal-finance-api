@@ -2,6 +2,8 @@ package com.empresa.financeiro.controller;
 
 import com.empresa.financeiro.DTO.LoginRequestDTO;
 import com.empresa.financeiro.DTO.LoginResponseDTO;
+import com.empresa.financeiro.DTO.RegisterRequestDTO;
+import com.empresa.financeiro.DTO.RegisterResponseDTO;
 import com.empresa.financeiro.service.UserCredentialService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -18,17 +20,21 @@ public class AuthController {
         this.service = service;
     }
 
-    @PostMapping("/cadastro/{id}")
-    public ResponseEntity<LoginResponseDTO> cadastro(
-            @RequestBody @Valid LoginRequestDTO dto, @PathVariable Long id) {
 
-        LoginResponseDTO response = service.cadastro(dto, id);
+    @PostMapping("/register")
+    public ResponseEntity<RegisterResponseDTO> register(
+            @RequestBody @Valid RegisterRequestDTO dto) {
+
+        RegisterResponseDTO response = service.register(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(
             @RequestBody @Valid LoginRequestDTO dto) {
-        return ResponseEntity.ok(service.login(dto));
+
+        LoginResponseDTO response = service.login(dto);
+        return ResponseEntity.ok(response);
     }
 }

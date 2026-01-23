@@ -2,6 +2,8 @@ package com.empresa.financeiro.service;
 
 import com.empresa.financeiro.DTO.LoginRequestDTO;
 import com.empresa.financeiro.DTO.LoginResponseDTO;
+import com.empresa.financeiro.DTO.RegisterRequestDTO;
+import com.empresa.financeiro.DTO.RegisterResponseDTO;
 import com.empresa.financeiro.entity.UserCredential;
 import com.empresa.financeiro.entity.Usuario;
 import com.empresa.financeiro.exception.BusinessException;
@@ -13,51 +15,69 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserCredentialService {
 
-    private final CredentialRepository credentialRepository;
     private final UsuarioRepository usuarioRepository;
+    private final CredentialRepository credentialRepository;
 
-    public UserCredentialService(CredentialRepository credentialRepository,
-                                 UsuarioRepository usuarioRepository) {
-        this.credentialRepository = credentialRepository;
+    public UserCredentialService(UsuarioRepository usuarioRepository,
+                                 CredentialRepository credentialRepository) {
         this.usuarioRepository = usuarioRepository;
+        this.credentialRepository = credentialRepository;
     }
 
-    /* ================= CADASTRO ================= */
+    /* ======================= CADASTRO ======================= */
 
-    public LoginResponseDTO cadastro(LoginRequestDTO dto, Long id) {
+    public RegisterResponseDTO register(RegisterRequestDTO dto) {
 
+        // 1 Verifica se o email já existe
         if (credentialRepository.existsByEmail(dto.getEmail())) {
             throw new BusinessException("Email já cadastrado");
         }
 
-        Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new UsuarioNotFoundException("Usuário não encontrado"));
+        // 2 Cria o usuário
+        Usuario usuario = new Usuario();
+        usuario.setNome(dto.getNome());
 
+        // 3 Cria a credencial
         UserCredential credential = new UserCredential();
         credential.setEmail(dto.getEmail());
-        credential.setSenha(dto.getSenha());
+        credential.setSenha(dto.getSenha()); // depois entra encoder
         credential.setUsuario(usuario);
 
-        credentialRepository.save(credential);
+        // 4 Relaciona os dois lados
+        usuario.setCredential(credential);
 
-        return new LoginResponseDTO(
+
+        // 5 Salva (usuario primeiro ou cascade)
+        usuarioRepository.save(usuario);
+
+        // 6 Retorno
+        return new RegisterResponseDTO(
+                usuario.getNome(),
                 credential.getEmail()
         );
     }
 
-    /* ================= LOGIN ================= */
+    /* ======================= LOGIN ======================= */
 
     public LoginResponseDTO login(LoginRequestDTO dto) {
 
+        // 1 Busca credencial pelo email
         UserCredential credential = credentialRepository
                 .findByEmail(dto.getEmail())
-                .orElseThrow(() -> new BusinessException("Email ou senha inválidas"));
+                .orElseThrow(() ->
+                        new BusinessException("Email ou senha inválidos")
+                );
 
+        // 2️Valida senha
         if (!credential.getSenha().equals(dto.getSenha())) {
-            throw new BusinessException("Email ou senha inválidas");
+            throw new BusinessException("Email ou senha inválidos");
         }
 
+        Usuario usuario = credential.getUsuario();
+
+        // 3 Retorno
         return new LoginResponseDTO(
+                usuario.getNome(),
                 credential.getEmail()
         );
     }
