@@ -1,18 +1,14 @@
 # Use a imagem oficial do OpenJDK
-FROM openjdk:21-jdk-slim
+FROM openjdk:21-jdk
 
 # Diretório dentro do container
 WORKDIR /app
 
-# Copia o pom.xml e os arquivos do projeto
-COPY pom.xml .
-COPY src ./src
+# Copia apenas o JAR já buildado
+COPY target/personal-finance-api-0.0.1-SNAPSHOT.jar app.jar
 
-# Builda o projeto usando Maven
-RUN ./mvnw clean package -DskipTests
-
-# Expõe a porta que o Spring Boot vai usar
+# Expor a porta que o Spring Boot vai usar
 EXPOSE 8080
 
 # Comando para rodar a aplicação
-CMD ["java", "-jar", "target/personal-finance-api-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "app.jar"]
