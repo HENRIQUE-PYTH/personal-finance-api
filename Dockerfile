@@ -1,5 +1,5 @@
 # Stage 1: build
-FROM maven:3.9.6-eclipse-temurin-20 AS build
+FROM maven:3.9.6-eclipse-temurin-20
 WORKDIR /app
 
 # Copia o pom e o código
