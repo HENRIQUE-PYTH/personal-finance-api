@@ -5,7 +5,7 @@ FROM eclipse-temurin:21-jdk
 WORKDIR /app
 
 # Copia apenas o JAR já buildado
-COPY target/personal-finance-api-0.0.1-SNAPSHOT.jar app.jar
+COPY target/financeiro-0.0.1-SNAPSHOT.jar app.jar
 
 # Expor a porta que o Spring Boot vai usar
 EXPOSE 8080
