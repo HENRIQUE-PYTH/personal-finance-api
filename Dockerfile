@@ -1,5 +1,5 @@
 # Use a imagem oficial do OpenJDK
-FROM openjdk:21
+FROM eclipse-temurin:21-jdk
 
 # Diretório dentro do container
 WORKDIR /app
