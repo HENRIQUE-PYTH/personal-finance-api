@@ -1,14 +1,23 @@
-# Use a imagem oficial do OpenJDK
-FROM eclipse-temurin:21-jdk
+# Imagem do Maven + JDK 21
+FROM maven:3.9.3-eclipse-temurin-21 AS build
 
-# Diretório dentro do container
 WORKDIR /app
 
-# Copia apenas o JAR já buildado
-COPY target/financeiro-0.0.1-SNAPSHOT.jar app.jar
+# Copia os arquivos do projeto
+COPY pom.xml .
+COPY src ./src
 
-# Expor a porta que o Spring Boot vai usar
+# Build do JAR
+RUN mvn clean package -DskipTests
+
+# Segunda fase: rodar o JAR
+FROM eclipse-temurin:21-jdk
+
+WORKDIR /app
+
+# Copia o JAR da fase de build
+COPY --from=build /app/target/financeiro-0.0.1-SNAPSHOT.jar app.jar
+
 EXPOSE 8080
 
-# Comando para rodar a aplicação
 CMD ["java", "-jar", "app.jar"]
