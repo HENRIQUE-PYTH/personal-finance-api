@@ -1,22 +1,10 @@
-# Imagem do Maven + JDK 21
+# Imagem oficial do Java 21
 FROM eclipse-temurin:21-jdk
 
 WORKDIR /app
 
-# Copia os arquivos do projeto
-COPY pom.xml .
-COPY src ./src
-
-# Build do JAR
-RUN mvn clean package -DskipTests
-
-# Segunda fase: rodar o JAR
-FROM eclipse-temurin:21-jdk
-
-WORKDIR /app
-
-# Copia o JAR da fase de build
-COPY --from=build /app/target/financeiro-0.0.1-SNAPSHOT.jar app.jar
+# Copia o JAR buildado localmente
+COPY target/financeiro-0.0.1-SNAPSHOT.jar app.jar
 
 EXPOSE 8080
 
