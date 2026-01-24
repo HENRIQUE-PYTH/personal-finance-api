@@ -1,5 +1,5 @@
 # Use a imagem oficial do OpenJDK
-FROM openjdk:21-jdk
+FROM openjdk:21
 
 # Diretório dentro do container
 WORKDIR /app
