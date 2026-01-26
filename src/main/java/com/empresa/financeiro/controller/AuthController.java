@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -31,12 +34,26 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(
+    public ResponseEntity<Map<String, Object>> login(
             @RequestBody @Valid LoginRequestDTO dto) {
 
         LoginResponseDTO response = service.login(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+
+        Map<String, Object> debug = new HashMap<>();
+        debug.put("id", response.getId());
+        debug.put("nome", response.getNome());
+        debug.put("email", response.getEmail());
+
+        return ResponseEntity.ok(debug);
     }
+
+
+//    @PostMapping("/login")
+//    public ResponseEntity<LoginResponseDTO> login(
+//            @RequestBody @Valid LoginRequestDTO dto) {
+//
+//        LoginResponseDTO response = service.login(dto);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+//    }
 }
