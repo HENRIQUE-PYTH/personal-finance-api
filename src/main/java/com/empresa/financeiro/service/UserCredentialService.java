@@ -49,6 +49,7 @@ public class UserCredentialService {
         usuarioRepository.save(usuario);
 
         return new RegisterResponseDTO(
+                usuario.getId(),
                 usuario.getNome(),
                 credential.getEmail()
         );
@@ -71,6 +72,7 @@ public class UserCredentialService {
         Usuario usuario = credential.getUsuario();
 
         return new LoginResponseDTO(
+                usuario.getId(),
                 usuario.getNome(),
                 credential.getEmail()
         );

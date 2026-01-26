@@ -5,9 +5,7 @@ import com.empresa.financeiro.entity.UserCredential;
 import com.empresa.financeiro.entity.Usuario;
 import com.empresa.financeiro.exception.BusinessException;
 import com.empresa.financeiro.exception.ResourceNotFoundException;
-import com.empresa.financeiro.mapper.CredentialMapper;
 import com.empresa.financeiro.repository.UsuarioRepository;
-import com.empresa.financeiro.repository.CredentialRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
