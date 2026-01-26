@@ -31,6 +31,7 @@ public class LancamentoController {
         ) {
             Lancamento lancamento = mapper.toEntity(dto);
             Lancamento salvo = service.registrar(lancamento, usuarioId);
+
             return ResponseEntity.ok(mapper.toResponseDTO(salvo));
         }
 
@@ -40,8 +41,20 @@ public class LancamentoController {
         ) {
             List<Lancamento> lancamentos = service.listarPorUsuario(usuarioId);
             return ResponseEntity.ok(
-                    lancamentos.stream().map(mapper::toResponseDTO).toList()
+                    lancamentos.stream()
+                            .map(mapper::toResponseDTO)
+                            .toList()
             );
         }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<LancamentoResponseDTO> buscarPorId(
+            @PathVariable Long usuarioId,
+            @PathVariable Long id
+    ) {
+        Lancamento lancamento = service.buscarPorId(usuarioId, id);
+
+        return ResponseEntity.ok(mapper.toResponseDTO(lancamento));
     }
+}
 

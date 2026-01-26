@@ -67,4 +67,10 @@ public class LancamentoService {
                 .subtract(calcularTotalSaidas(usuarioId));
     }
 
+    public Lancamento buscarPorId(Long usuarioId, Long lancamentoId) {
+        return repository
+                .findByIdAndUsuarioId(lancamentoId, usuarioId)
+                .orElseThrow(() -> new BusinessException("Lançamento não encontrado"));
+    }
+
 }
